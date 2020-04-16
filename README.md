@@ -1,8 +1,5 @@
 ## F&MD - Faqs
 
-[![Downloads](https://img.shields.io/packagist/dt/agenciafmd/admix-faqs.svg?style=flat-square)](https://packagist.org/packages/agenciafmd/admix-categories)
-[![Licença](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-
 - Perguntas frequentes
 
 ## Instalação
