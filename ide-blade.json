@@ -1,0 +1,8 @@
+{
+    "namespaces": [
+        {
+            "namespace": "agenciafmd/faqs",
+            "path": "src/resources/views"
+        }
+    ]
+}
