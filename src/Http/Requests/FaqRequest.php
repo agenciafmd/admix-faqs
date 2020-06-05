@@ -9,23 +9,48 @@ class FaqRequest extends FormRequest
     public function rules()
     {
         $data = [
-            'is_active' => 'required|boolean',
-            'name' => 'required|max:150',
-            'description' => 'required',
-            'short_description' => 'nullable',
-            'video' => 'nullable',
+            'is_active' => [
+                'required',
+                'boolean',
+            ],
+            'star' => [
+                'required',
+                'boolean',
+            ],
+            'name' => [
+                'required',
+                'max:150',
+            ],
+            'description' => [
+                'required',
+            ],
+            'short_description' => [
+                'nullable',
+            ],
+            'video' => [
+                'nullable',
+            ],
         ];
 
         if (config('admix-articles.category')) {
-            $data['category_id'] = 'required|integer';
+            $data['category_id'] = [
+                'required',
+                'integer',
+            ];
         }
 
         if (config('admix-articles.call')) {
-            $data['call'] = 'nullable|max:250';
+            $data['call'] = [
+                'nullable',
+                'max:250',
+            ];
         }
 
         if (config('admix-articles.published_at')) {
-            $data['published_at'] = 'required';
+            $data['published_at'] = [
+                'required',
+                'date_format:Y-m-d\TH:i',
+            ];
         }
 
         return $data;

@@ -8,8 +8,10 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class Faq extends Model implements AuditableContract
+class Faq extends Model implements AuditableContract, Searchable
 {
     use SoftDeletes, Auditable;
 
@@ -20,6 +22,24 @@ class Faq extends Model implements AuditableContract
     protected $dates = [
         'published_at',
     ];
+
+    public $searchableType;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->searchableType = config('admix-faqs.name');
+    }
+
+    public function getSearchResult(): SearchResult
+    {
+        return new SearchResult(
+            $this,
+            "{$this->name}",
+            route('admix.faqs.edit', $this->id)
+        );
+    }
 
     protected static function boot()
     {

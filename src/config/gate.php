@@ -2,7 +2,7 @@
 
 return [
     [
-        'name' => 'Faqs » Categorias',
+        'name' => 'Perguntas Frequentes » Categorias',
         'policy' => '\Agenciafmd\Faq\Policies\CategoryPolicy',
         'abilities' => [
             [
@@ -29,7 +29,7 @@ return [
         'sort' => 9,
     ],
     [
-        'name' => 'Perguntas frequentes',
+        'name' => 'Perguntas Frequentes',
         'policy' => '\Agenciafmd\Faq\Policies\FaqPolicy',
         'abilities' => [
             [

@@ -37,7 +37,7 @@ class FaqController extends Controller
 
     public function store(FaqRequest $request)
     {
-        if ($faq = Faq::create($request->all())) {
+        if ($faq = Faq::create($request->validated())) {
             flash('Item inserido com sucesso.', 'success');
         } else {
             flash('Falha no cadastro.', 'danger');
@@ -62,7 +62,7 @@ class FaqController extends Controller
 
     public function update(Faq $faq, FaqRequest $request)
     {
-        if ($faq->update($request->all())) {
+        if ($faq->update($request->validated())) {
             flash('Item atualizado com sucesso.', 'success');
         } else {
             flash('Falha na atualização.', 'danger');
