@@ -2,6 +2,8 @@
 
 namespace Agenciafmd\Faqs\Providers;
 
+use Agenciafmd\Faqs\Category;
+use Agenciafmd\Faqs\Faq;
 use Illuminate\Support\ServiceProvider;
 
 class FaqServiceProvider extends ServiceProvider
@@ -11,6 +13,8 @@ class FaqServiceProvider extends ServiceProvider
         $this->providers();
 
         $this->setMenu();
+
+        $this->setSearch();
 
         $this->loadViews();
 
@@ -40,6 +44,13 @@ class FaqServiceProvider extends ServiceProvider
                 'view' => config('admix-faqs.category') ? 'agenciafmd/faqs::partials.menus.category-item' : 'agenciafmd/faqs::partials.menus.item',
                 'ord' => config('admix-faqs.sort', 1),
             ]);
+    }
+
+    protected function setSearch()
+    {
+        $this->app->make('admix-search')
+            ->registerModel(Faq::class, 'name')
+            ->registerModel(Category::class, 'name');
     }
 
     protected function loadViews()
