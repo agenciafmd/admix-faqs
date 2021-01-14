@@ -1,7 +1,9 @@
 <?php
 
-namespace Agenciafmd\Faqs;
+namespace Agenciafmd\Faqs\Models;
 
+use Database\Factories\FaqFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -13,10 +15,10 @@ use Spatie\Searchable\SearchResult;
 
 class Faq extends Model implements AuditableContract, Searchable
 {
-    use SoftDeletes, Auditable;
+    use SoftDeletes, HasFactory, Auditable;
 
     protected $guarded = [
-
+        //
     ];
 
     protected $dates = [
@@ -98,5 +100,10 @@ class Faq extends Model implements AuditableContract, Searchable
         foreach ($sorts as $sort) {
             $query->orderBy($sort['field'], $sort['direction']);
         }
+    }
+
+    protected static function newFactory()
+    {
+        return FaqFactory::new();
     }
 }

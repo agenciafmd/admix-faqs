@@ -2,8 +2,8 @@
 
 namespace Agenciafmd\Faqs\Providers;
 
-use Agenciafmd\Faqs\Category;
-use Agenciafmd\Faqs\Faq;
+use Agenciafmd\Faqs\Models\Category;
+use Agenciafmd\Faqs\Models\Faq;
 use Illuminate\Support\ServiceProvider;
 
 class FaqServiceProvider extends ServiceProvider
@@ -12,38 +12,23 @@ class FaqServiceProvider extends ServiceProvider
     {
         $this->providers();
 
-        $this->setMenu();
-
         $this->setSearch();
-
-        $this->loadViews();
 
         $this->loadMigrations();
 
-        $this->loadTranslations();
-
-        $this->loadViewComposer();
-
         $this->publish();
+    }
 
-        if ($this->app->environment('local') && $this->app->runningInConsole()) {
-            $this->setLocalFactories();
-        }
+    public function register()
+    {
+        $this->loadConfigs();
     }
 
     protected function providers()
     {
-        $this->app->register(RouteServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);
-    }
-
-    protected function setMenu()
-    {
-        $this->app->make('admix-menu')
-            ->push((object)[
-                'view' => config('admix-faqs.category') ? 'agenciafmd/faqs::partials.menus.category-item' : 'agenciafmd/faqs::partials.menus.item',
-                'ord' => config('admix-faqs.sort', 1),
-            ]);
+        $this->app->register(BladeServiceProvider::class);
+        $this->app->register(RouteServiceProvider::class);
     }
 
     protected function setSearch()
@@ -53,48 +38,28 @@ class FaqServiceProvider extends ServiceProvider
             ->registerModel(Category::class, 'name');
     }
 
-    protected function loadViews()
-    {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'agenciafmd/faqs');
-    }
-
     protected function loadMigrations()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
-    protected function loadTranslations()
-    {
-        $this->loadJsonTranslationsFrom(__DIR__ . '/../resources/lang');
-    }
-
-    protected function loadViewComposer()
-    {
-        //
-    }
-
     protected function publish()
     {
-        $this->publishes([
-            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/agenciafmd/faqs'),
-        ], 'views');
-
         $this->publishes([
             __DIR__ . '/../config/admix-faqs.php' => config_path('admix-faqs.php'),
             __DIR__ . '/../config/admix-categories.php' => config_path('admix-categories.php'),
             __DIR__ . '/../config/upload-configs.php' => config_path('upload-configs.php'),
-        ], 'configs');
-    }
+        ], 'admix-faqs:configs');
 
-    public function setLocalFactories()
-    {
-        $this->app->make('Illuminate\Database\Eloquent\Factory')
-            ->load(__DIR__ . '/../database/factories');
-    }
+        $factoriesAndSeeders[__DIR__ . '/../database/factories/FaqFactory.php.stub'] = base_path('database/factories/FaqFactory.php');
+        $factoriesAndSeeders[__DIR__ . '/../database/seeders/FaqsTableSeeder.php.stub'] = base_path('database/seeders/FaqsTableSeeder.php');
 
-    public function register()
-    {
-        $this->loadConfigs();
+        if (config('admix-faqs.category')) {
+            $factoriesAndSeeders[__DIR__ . '/../database/factories/FaqCategoryFactory.php.stub'] = base_path('database/factories/FaqCategoryFactory.php');
+            $factoriesAndSeeders[__DIR__ . '/../database/seeders/FaqsCategoriesTableSeeder.php.stub'] = base_path('database/seeders/FaqsCategoriesTableSeeder.php');
+        }
+
+        $this->publishes($factoriesAndSeeders, 'admix-faqs:seeds');
     }
 
     protected function loadConfigs()

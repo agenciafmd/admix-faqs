@@ -10,9 +10,9 @@ return [
         '-published_at',
         'name',
     ],
+    'category' => true,
     'call' => false,
-    'category' => false,
-    'published_at' => true,
+    'published_at' => false,
     'short_description' => false,
-    'wysiwyg' => true,
+    'wysiwyg' => false,
 ];

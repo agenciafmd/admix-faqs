@@ -8,15 +8,11 @@
                 Criar
             @elseif(request()->is('*/edit'))
                 Editar
-            @else
-                Visualizar
             @endif
             {{ config('admix-faqs.name') }}
         </h3>
         <div class="card-options">
-            @if(strpos(request()->route()->getName(), 'show') === false)
-                @include('agenciafmd/admix::partials.btn.save')
-            @endif
+            @include('agenciafmd/admix::partials.btn.save')
         </div>
     </div>
     <ul class="list-group list-group-flush">
@@ -53,23 +49,19 @@
         @endif
 
         @if(config('admix-faqs.wysiwyg'))
-            {{ Form::bsTextarea('Descrição', 'description', null) }}
+            {{ Form::bsWysiwyg('Descrição', 'description', null) }}
         @else
-            {{ Form::bsTextareaPlain('Descrição', 'description', null) }}
+            {{ Form::bsTextarea('Descrição', 'description', null) }}
         @endif
 
         @if(config('admix-faqs.published_at'))
             {{ Form::bsDateTime('Data de Publicação', 'published_at', optional(optional($model)->published_at)->format("Y-m-d\TH:i"), ['required']) }}
         @endif
-
     </ul>
     <div class="card-footer bg-gray-lightest text-right">
         <div class="d-flex">
             @include('agenciafmd/admix::partials.btn.back')
-
-            @if(strpos(request()->route()->getName(), 'show') === false)
-                @include('agenciafmd/admix::partials.btn.save')
-            @endif
+            @include('agenciafmd/admix::partials.btn.save')
         </div>
     </div>
     {{ Form::close() }}

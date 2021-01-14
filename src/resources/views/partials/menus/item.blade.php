@@ -1,8 +1,8 @@
-@can('view', '\Agenciafmd\Faqs\Faq')
+@can('view', \Agenciafmd\Faqs\Models\Faq::class)
     <li class="nav-item">
-        <a class="nav-link {{ (admix_is_active(route('admix.faqs.index'))) ? 'active' : '' }}"
+        <a class="nav-link {{ (Str::startsWith(request()->route()->getName(), 'admix.faqs')) ? 'active' : '' }}"
            href="{{ route('admix.faqs.index') }}"
-           aria-expanded="{{ (admix_is_active(route('admix.faqs.index'))) ? 'true' : 'false' }}">
+           aria-expanded="{{ (Str::startsWith(request()->route()->getName(), 'admix.faqs')) ? 'true' : 'false' }}">
         <span class="nav-icon">
             <i class="icon {{ config('admix-faqs.icon') }}"></i>
         </span>

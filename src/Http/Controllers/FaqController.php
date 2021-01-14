@@ -2,10 +2,11 @@
 
 namespace Agenciafmd\Faqs\Http\Controllers;
 
-use Agenciafmd\Faqs\Faq;
+use Agenciafmd\Faqs\Models\Faq;
 use Agenciafmd\Faqs\Http\Requests\FaqRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class FaqController extends Controller
@@ -17,7 +18,10 @@ class FaqController extends Controller
         $query = QueryBuilder::for(Faq::class)
             ->defaultSorts(config('admix-faqs.default_sort'))
             ->allowedSorts($request->sort)
-            ->allowedFilters((($request->filter) ? array_keys($request->get('filter')) : []));
+            ->allowedFilters(array_merge((($request->filter) ? array_keys(array_diff_key($request->filter, array_flip(['id', 'is_active']))) : []), [
+                AllowedFilter::exact('id'),
+                AllowedFilter::exact('is_active'),
+            ]));
 
         if ($request->is('*/trash')) {
             $query->onlyTrashed();

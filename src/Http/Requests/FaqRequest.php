@@ -32,21 +32,21 @@ class FaqRequest extends FormRequest
             ],
         ];
 
-        if (config('admix-articles.category')) {
+        if (config('admix-faqs.category')) {
             $data['category_id'] = [
                 'required',
                 'integer',
             ];
         }
 
-        if (config('admix-articles.call')) {
+        if (config('admix-faqs.call')) {
             $data['call'] = [
                 'nullable',
                 'max:250',
             ];
         }
 
-        if (config('admix-articles.published_at')) {
+        if (config('admix-faqs.published_at')) {
             $data['published_at'] = [
                 'required',
                 'date_format:Y-m-d\TH:i',

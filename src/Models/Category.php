@@ -1,14 +1,18 @@
 <?php
 
-namespace Agenciafmd\Faqs;
+namespace Agenciafmd\Faqs\Models;
 
-use Agenciafmd\Categories\Category as CategoryBase;
+use Agenciafmd\Categories\Models\Category as CategoryBase;
+use Database\Factories\FaqCategoryFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
 class Category extends CategoryBase implements Searchable
 {
+    use HasFactory;
+
     protected $table = 'categories';
 
     protected $attributes = [
@@ -24,15 +28,6 @@ class Category extends CategoryBase implements Searchable
         $this->searchableType = config('admix-categories.faqs-categories.name');
     }
 
-    public function getSearchResult(): SearchResult
-    {
-        return new SearchResult(
-            $this,
-            "{$this->name} ({$this->email})",
-            route('admix.faqs.categories.edit', $this->id)
-        );
-    }
-
     protected static function boot()
     {
         parent::boot();
@@ -42,10 +37,34 @@ class Category extends CategoryBase implements Searchable
         });
     }
 
+    public function getSearchResult(): SearchResult
+    {
+        return new SearchResult(
+            $this,
+            "{$this->name}",
+            route('admix.faqs.categories.edit', $this->id)
+        );
+    }
+
     public function getUrlAttribute()
     {
         return route('frontend.faqs.index', [
             $this->attributes['slug'],
         ]);
+    }
+
+    public function getMorphClass()
+    {
+        return CategoryBase::class;
+    }
+
+    public function scopeSort($query, $type = 'faqs-categories')
+    {
+        parent::scopeSort($query, $type);
+    }
+
+    protected static function newFactory()
+    {
+        return FaqCategoryFactory::new();
     }
 }

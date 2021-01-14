@@ -2,8 +2,8 @@
 
 return [
     [
-        'name' => 'Perguntas Frequentes » Categorias',
-        'policy' => '\Agenciafmd\Faq\Policies\CategoryPolicy',
+        'name' => config('admix-faqs.name') . ' » ' . config('admix-categories.faqs-categories.name'),
+        'policy' => '\Agenciafmd\Faqs\Policies\CategoryPolicy',
         'abilities' => [
             [
                 'name' => 'visualizar',
@@ -29,8 +29,8 @@ return [
         'sort' => 9,
     ],
     [
-        'name' => 'Perguntas Frequentes',
-        'policy' => '\Agenciafmd\Faq\Policies\FaqPolicy',
+        'name' => config('admix-faqs.name'),
+        'policy' => '\Agenciafmd\Faqs\Policies\FaqPolicy',
         'abilities' => [
             [
                 'name' => 'visualizar',
