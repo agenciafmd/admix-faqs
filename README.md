@@ -1,6 +1,11 @@
-## F&MD - Faqs
+## F&MD - FAQ
 
-- Perguntas frequentes
+![Área Administrativa](https://github.com/agenciafmd/admix-faqs/raw/master/docs/screenshot.png "Área Administrativa")
+
+[![Downloads](https://img.shields.io/packagist/dt/agenciafmd/admix-faqs.svg?style=flat-square)](https://packagist.org/packages/agenciafmd/admix-faqs)
+[![Licença](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
+- Perguntas Frequentes
 
 ## Instalação
 
@@ -8,26 +13,29 @@
 composer require agenciafmd/admix-faqs:dev-master
 ```
 
+Execute a migração
+
+```bash
+php artisan migrate
+```
+
+Se precisar do seed, faça a publicação
+
+```bash
+php artisan vendor:publish --tag=admix-faqs:seeds
+```
+
+**não esqueça do `composer dumpautoload`**
+
 ## Configuração
 
-TODO: Explicar a configuração da categoria
-
-## Uso
-
-TODO: Exemplificar o uso
-
-## Customização
-
-Para customizar as configurações do pacote, publique os arquivos de configuração usando:
-```
-php artisan vendor:publish --provider="Agenciafmd\Faqs\Providers\FaqServiceProvider" --tag configs
-```
+Por padrão, as configurações do pacote são:
 
 ```php
 <?php
 
 return [
-    'name' => 'Perguntas frequentes',
+    'name' => 'Perguntas Frequentes',
     'icon' => 'icon fe-help-circle',
     'sort' => 20,
     'default_sort' => [
@@ -36,13 +44,22 @@ return [
         '-published_at',
         'name',
     ],
-    'call' => false,    
-    'category' => true,
-    'published_at' => false,    
+    'category' => false,
+    'call' => false,
+    'published_at' => false,
     'short_description' => false,
-    'wysiwyg' => true,
+    'wysiwyg' => false,
 ];
 ```
+
+Se for preciso, você pode customizar estas configurações
+
+```bash
+php artisan vendor:publish --tag=admix-faqs:config
+```
+
+**caso tenha habilitado as categorias, é importante republicar os seeds**
+
 
 ## Segurança
 
