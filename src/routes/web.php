@@ -1,7 +1,7 @@
 <?php
 
 use Agenciafmd\Faqs\Http\Controllers\FaqController;
-use Agenciafmd\Categories\Http\Controllers\CategoryController;
+use Agenciafmd\Faqs\Http\Controllers\CategoryController;
 use Agenciafmd\Faqs\Models\Faq;
 use Agenciafmd\Faqs\Models\Category;
 
