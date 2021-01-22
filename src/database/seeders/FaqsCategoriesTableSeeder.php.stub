@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Agenciafmd\Faqs\Models\Category;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class FaqsCategoriesTableSeeder extends Seeder
@@ -11,8 +12,8 @@ class FaqsCategoriesTableSeeder extends Seeder
 
     public function run()
     {
-        Category::query()
-            ->truncate();
+        Category::withTrashed()
+            ->get()->each->forceDelete();
 
         if (!config('admix-faqs.category')) {
             return false;
@@ -32,8 +33,33 @@ class FaqsCategoriesTableSeeder extends Seeder
         $this->command->getOutput()
             ->progressStart($this->total);
 
+        $faker = Factory::create('pt_BR');
+
         Category::factory($this->total)
-            ->create();
+            ->create()
+            ->each(function ($category) use ($faker) {
+                foreach (config('upload-configs.faqs-categories') as $key => $image) {
+                    $fakerDir = __DIR__ . '/../faker/faqs-categories/' . $key;
+
+                    if ($image['faker_dir']) {
+                        $fakerDir = $image['faker_dir'];
+                    }
+
+                    if ($image['multiple']) {
+                        $items = $faker->numberBetween(0, 6);
+                        for ($i = 0; $i < $items; $i++) {
+                            $category->doUploadMultiple($faker->file($fakerDir, storage_path('admix/tmp')), $key);
+                        }
+                    } else {
+                        $category->doUpload($faker->file($fakerDir, storage_path('admix/tmp')), $key);
+                    }
+                }
+
+                $category->save();
+
+                $this->command->getOutput()
+                    ->progressAdvance();
+            });
 
         $this->command->getOutput()
             ->progressFinish();
