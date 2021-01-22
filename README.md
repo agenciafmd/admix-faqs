@@ -60,7 +60,6 @@ php artisan vendor:publish --tag=admix-faqs:config
 
 **caso tenha habilitado as categorias, é importante republicar os seeds**
 
-
 ## Segurança
 
 Caso encontre alguma falha de segurança, por favor, envie um email para carlos@fmd.ag ao invés de abrir uma issue
