@@ -59,7 +59,7 @@ class FaqServiceProvider extends ServiceProvider
             $factoriesAndSeeders[__DIR__ . '/../database/seeders/FaqsCategoriesTableSeeder.php.stub'] = base_path('database/seeders/FaqsCategoriesTableSeeder.php');
         }
 
-        $this->publishes($factoriesAndSeeders, 'admix-faqs:seeds');
+        $this->publishes($factoriesAndSeeders, 'admix-faqs:seeders');
     }
 
     protected function loadConfigs()

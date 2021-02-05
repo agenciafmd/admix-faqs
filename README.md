@@ -22,7 +22,7 @@ php artisan migrate
 Se precisar do seed, faça a publicação
 
 ```bash
-php artisan vendor:publish --tag=admix-faqs:seeds
+php artisan vendor:publish --tag=admix-faqs:seeders
 ```
 
 **não esqueça do `composer dumpautoload`**
