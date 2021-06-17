@@ -21,8 +21,8 @@ class Faq extends Model implements AuditableContract, Searchable
         //
     ];
 
-    protected $dates = [
-        'published_at',
+    protected $casts = [
+        'published_at' => 'datetime',
     ];
 
     public $searchableType;
