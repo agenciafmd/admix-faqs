@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Agenciafmd\Faqs\Database\Factories;
 
 use Agenciafmd\Faqs\Models\Faq;
 use Agenciafmd\Faqs\Models\Category;

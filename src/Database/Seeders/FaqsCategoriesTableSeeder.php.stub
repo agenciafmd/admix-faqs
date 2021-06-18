@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Agenciafmd\Faqs\Database\Seeders;
 
 use Agenciafmd\Faqs\Models\Category;
 use Faker\Factory;
@@ -39,7 +39,7 @@ class FaqsCategoriesTableSeeder extends Seeder
             ->create()
             ->each(function ($category) use ($faker) {
                 foreach (config('upload-configs.faqs-categories') as $key => $image) {
-                    $fakerDir = __DIR__ . '/../faker/faqs-categories/' . $key;
+                    $fakerDir = __DIR__ . '/../Faker/faqs-categories/' . $key;
 
                     if ($image['faker_dir']) {
                         $fakerDir = $image['faker_dir'];
@@ -48,10 +48,16 @@ class FaqsCategoriesTableSeeder extends Seeder
                     if ($image['multiple']) {
                         $items = $faker->numberBetween(0, 6);
                         for ($i = 0; $i < $items; $i++) {
-                            $category->doUploadMultiple($faker->file($fakerDir, storage_path('admix/tmp')), $key);
+                            $sourceFile = $faker->file($fakerDir, storage_path('admix/tmp'));
+                            $targetFile = Storage::putFile('tmp', new HttpFile($sourceFile));
+
+                            $category->doUploadMultiple($targetFile, $key);
                         }
                     } else {
-                        $category->doUpload($faker->file($fakerDir, storage_path('admix/tmp')), $key);
+                        $sourceFile = $faker->file($fakerDir, storage_path('admix/tmp'));
+                        $targetFile = Storage::putFile('tmp', new HttpFile($sourceFile));
+
+                        $category->doUpload($targetFile, $key);
                     }
                 }
 

@@ -40,7 +40,7 @@ class FaqServiceProvider extends ServiceProvider
 
     protected function loadMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 
     protected function publish()
@@ -51,12 +51,12 @@ class FaqServiceProvider extends ServiceProvider
             __DIR__ . '/../config/upload-configs.php' => config_path('upload-configs.php'),
         ], 'admix-faqs:configs');
 
-        $factoriesAndSeeders[__DIR__ . '/../database/factories/FaqFactory.php.stub'] = base_path('database/factories/FaqFactory.php');
-        $factoriesAndSeeders[__DIR__ . '/../database/seeders/FaqsTableSeeder.php.stub'] = base_path('database/seeders/FaqsTableSeeder.php');
+        $factoriesAndSeeders[__DIR__ . '/../Database/Factories/FaqFactory.php.stub'] = base_path('Database/Factories/FaqFactory.php');
+        $factoriesAndSeeders[__DIR__ . '/../Database/Seeders/FaqsTableSeeder.php.stub'] = base_path('Database/Seeders/FaqsTableSeeder.php');
 
         if (config('admix-faqs.category')) {
-            $factoriesAndSeeders[__DIR__ . '/../database/factories/FaqCategoryFactory.php.stub'] = base_path('database/factories/FaqCategoryFactory.php');
-            $factoriesAndSeeders[__DIR__ . '/../database/seeders/FaqsCategoriesTableSeeder.php.stub'] = base_path('database/seeders/FaqsCategoriesTableSeeder.php');
+            $factoriesAndSeeders[__DIR__ . '/../Database/Factories/FaqCategoryFactory.php.stub'] = base_path('Database/Factories/FaqCategoryFactory.php');
+            $factoriesAndSeeders[__DIR__ . '/../Database/Seeders/FaqsCategoriesTableSeeder.php.stub'] = base_path('Database/Seeders/FaqsCategoriesTableSeeder.php');
         }
 
         $this->publishes($factoriesAndSeeders, 'admix-faqs:seeders');
