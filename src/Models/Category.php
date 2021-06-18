@@ -3,7 +3,7 @@
 namespace Agenciafmd\Faqs\Models;
 
 use Agenciafmd\Categories\Models\Category as CategoryBase;
-use Database\Factories\FaqCategoryFactory;
+use Agenciafmd\Faqs\Database\Factories\FaqCategoryFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Searchable\Searchable;

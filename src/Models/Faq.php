@@ -2,7 +2,7 @@
 
 namespace Agenciafmd\Faqs\Models;
 
-use Database\Factories\FaqFactory;
+use Agenciafmd\Faqs\Database\Factories\FaqFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

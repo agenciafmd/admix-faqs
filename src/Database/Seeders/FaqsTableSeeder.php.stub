@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Agenciafmd\Faqs\Database\Seeders;
 
 use Agenciafmd\Faqs\Models\Faq;
 use Illuminate\Database\Seeder;
