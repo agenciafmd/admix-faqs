@@ -2,8 +2,8 @@
 
 namespace Agenciafmd\Faqs\Database\Factories;
 
-use Agenciafmd\Faqs\Models\Faq;
 use Agenciafmd\Faqs\Models\Category;
+use Agenciafmd\Faqs\Models\Faq;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FaqFactory extends Factory

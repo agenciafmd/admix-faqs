@@ -104,6 +104,10 @@ class Faq extends Model implements AuditableContract, Searchable
 
     protected static function newFactory()
     {
+        if (class_exists(\Database\Factories\FaqFactory::class)) {
+            return \Database\Factories\FaqFactory::new();
+        }
+
         return FaqFactory::new();
     }
 }
