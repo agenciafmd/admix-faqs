@@ -2,49 +2,64 @@
 
 namespace Agenciafmd\Faqs\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class BladeServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
+        $this->loadBladeComponents();
+
+        $this->loadBladeDirectives();
+
+        $this->loadBladeComposers();
+
         $this->setMenu();
 
         $this->loadViews();
 
-        $this->loadTranslations();
-
         $this->publish();
     }
 
-    public function register()
+    public function register(): void
     {
         //
     }
 
-    protected function setMenu()
+    private function loadBladeComponents(): void
+    {
+        Blade::componentNamespace('Agenciafmd\\Faqs\\Http\\Components', 'admix-faqs');
+    }
+
+    private function loadBladeComposers(): void
+    {
+        //
+    }
+
+    private function loadBladeDirectives(): void
+    {
+        //
+    }
+
+    private function setMenu(): void
     {
         $this->app->make('admix-menu')
             ->push((object)[
-                'view' => config('admix-faqs.category') ? 'agenciafmd/faqs::partials.menus.category-item' : 'agenciafmd/faqs::partials.menus.item',
-                'ord' => config('admix-faqs.sort', 1),
+                'component' => 'admix-faqs::aside.faq',
+                'ord' => config('admix-faqs.sort'),
             ]);
     }
 
-    protected function loadViews()
+    private function loadViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'agenciafmd/faqs');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'admix-faqs');
     }
 
-    protected function loadTranslations()
+    private function publish(): void
     {
-        $this->loadJsonTranslationsFrom(__DIR__ . '/../resources/lang');
-    }
-
-    protected function publish()
-    {
-        $this->publishes([
-            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/agenciafmd/faqs'),
-        ], 'admix-faqs:views');
+        // $this->publishes([
+        //     __DIR__ . '/../resources/views' => base_path('resources/views/vendor/agenciafmd/faqs'),
+        // ], 'admix-faqs:views');
     }
 }

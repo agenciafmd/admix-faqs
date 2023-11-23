@@ -2,72 +2,73 @@
 
 namespace Agenciafmd\Faqs\Providers;
 
-use Agenciafmd\Faqs\Models\Category;
 use Agenciafmd\Faqs\Models\Faq;
+use Agenciafmd\Faqs\Observers\FaqObserver;
 use Illuminate\Support\ServiceProvider;
 
 class FaqServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->providers();
 
-        $this->setSearch();
+        $this->setObservers();
 
         $this->loadMigrations();
+
+        $this->loadTranslations();
 
         $this->publish();
     }
 
-    public function register()
+    public function register(): void
     {
         $this->loadConfigs();
     }
 
-    protected function providers()
+    private function providers(): void
     {
-        $this->app->register(AuthServiceProvider::class);
         $this->app->register(BladeServiceProvider::class);
+        $this->app->register(CommandServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(AuthServiceProvider::class);
+        $this->app->register(LivewireServiceProvider::class);
     }
 
-    protected function setSearch()
-    {
-        $this->app->make('admix-search')
-            ->registerModel(Faq::class, 'name')
-            ->registerModel(Category::class, 'name');
-    }
-
-    protected function loadMigrations()
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-    }
-
-    protected function publish()
+    private function publish(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/admix-faqs.php' => config_path('admix-faqs.php'),
-            __DIR__ . '/../config/admix-categories.php' => config_path('admix-categories.php'),
-            __DIR__ . '/../config/upload-configs.php' => config_path('upload-configs.php'),
-        ], 'admix-faqs:configs');
+            __DIR__ . '/../../config' => base_path('config'),
+        ], 'admix-faqs:config');
 
-        $factoriesAndSeeders[__DIR__ . '/../Database/Factories/FaqFactory.php'] = base_path('database/factories/FaqFactory.php');
-        $factoriesAndSeeders[__DIR__ . '/../Database/Seeders/FaqsTableSeeder.php'] = base_path('database/seeders/FaqsTableSeeder.php');
+        $this->publishes([
+            __DIR__ . '/../../database/seeders/FaqTableSeeder.php' => base_path('database/seeders/FaqTableSeeder.php'),
+        ], 'admix-faqs:seeders');
 
-        if (config('admix-faqs.category')) {
-            $factoriesAndSeeders[__DIR__ . '/../Database/Factories/FaqCategoryFactory.php'] = base_path('database/factories/FaqCategoryFactory.php');
-            $factoriesAndSeeders[__DIR__ . '/../Database/Seeders/FaqsCategoriesTableSeeder.php'] = base_path('database/seeders/FaqsCategoriesTableSeeder.php');
-        }
-
-        $this->publishes($factoriesAndSeeders, 'admix-faqs:seeders');
+        $this->publishes([
+            __DIR__ . '/../../lang/pt_BR' => lang_path('pt_BR'),
+        ], ['admix-faqs:translations', 'admix-translations']);
     }
 
-    protected function loadConfigs()
+    private function setObservers(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/admix-faqs.php', 'admix-faqs');
-        $this->mergeConfigFrom(__DIR__ . '/../config/admix-categories.php', 'admix-categories');
-        $this->mergeConfigFrom(__DIR__ . '/../config/gate.php', 'gate');
-        $this->mergeConfigFrom(__DIR__ . '/../config/audit-alias.php', 'audit-alias');
-        $this->mergeConfigFrom(__DIR__ . '/../config/upload-configs.php', 'upload-configs');
+        Faq::observe(FaqObserver::class);
+    }
+
+    private function loadMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+    }
+
+    private function loadTranslations(): void
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'admix-faqs');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../../lang');
+    }
+
+    private function loadConfigs(): void
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../../config/admix-faqs.php', 'admix-faqs');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/audit-alias.php', 'audit-alias');
     }
 }

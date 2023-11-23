@@ -1,26 +1,23 @@
 {
     "name": "agenciafmd/admix-faqs",
-    "description": "Perguntas Frequentes - Agência F&MD",
-    "homepage": "https://github.com/agenciafmd/admix-faqs",
+    "description": "Faq - Agência F&MD",
     "license": "MIT",
     "authors": [
         {
-            "name": "Carlos Seiji",
-            "email": "carlos@fmd.ag",
+            "name": "Irineu Junior",
+            "email": "irineu@fmd.ag",
             "homepage": "https://fmd.ag/",
             "role": "Developer"
         }
     ],
     "require": {
-        "laravel/framework": "^8.0",
-        "agenciafmd/admix-categories": "dev-master"
+        "laravel/framework": "10.*"
     },
     "autoload": {
-        "files": [
-            "src/Http/helpers.php"
-        ],
         "psr-4": {
-            "Agenciafmd\\Faqs\\": "src/"
+            "Agenciafmd\\Faqs\\": "src/",
+            "Agenciafmd\\Faqs\\Database\\Factories\\": "database/factories/",
+            "Agenciafmd\\Faqs\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "extra": {
@@ -29,5 +26,8 @@
                 "Agenciafmd\\Faqs\\Providers\\FaqServiceProvider"
             ]
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }

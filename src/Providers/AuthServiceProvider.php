@@ -2,21 +2,28 @@
 
 namespace Agenciafmd\Faqs\Providers;
 
-use Agenciafmd\Faqs\Policies\CategoryPolicy;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Agenciafmd\Faqs\Models\Faq;
 use Agenciafmd\Faqs\Policies\FaqPolicy;
-use Agenciafmd\Faqs\Models\Category;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        Category::class => CategoryPolicy::class,
         Faq::class => FaqPolicy::class,
     ];
 
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
+    }
+
+    public function register(): void
+    {
+        $this->loadConfigs();
+    }
+
+    public function loadConfigs(): void
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../../config/gate.php', 'gate');
     }
 }
