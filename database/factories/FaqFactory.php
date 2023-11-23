@@ -15,7 +15,7 @@ class FaqFactory extends Factory
             'is_active' => $this->faker->optional(0.3, 1)
                 ->randomElement([0]),
             'name' => $this->faker->sentence(3),
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->paragraphs(3, true),
             'sort' => $this->faker->optional()
                 ->numberBetween(1, 999),
         ];
