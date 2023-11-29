@@ -3,6 +3,7 @@
 namespace Agenciafmd\Faqs\Models;
 
 use Agenciafmd\Admix\Traits\WithScopes;
+use Agenciafmd\Admix\Traits\WithSlug;
 use Agenciafmd\Faqs\Database\Factories\FaqFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class Faq extends Model implements AuditableContract
 {
-    use Auditable, HasFactory, SoftDeletes, WithScopes;
+    use Auditable, HasFactory, SoftDeletes, WithScopes, WithSlug;
 
     protected $guarded = [
         //
