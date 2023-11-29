@@ -23,18 +23,16 @@ class FaqObserver
         $slug = Str::of($faq->name)
             ->trim()
             ->slug();
-        $lastSlug = $faq->withTrashed()
-            ->whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")
-            ->orderBy('slug', 'desc')
-            ->first()?->slug;
-        if (!$lastSlug) {
-            return $slug;
+
+        $i = 1;
+        $uniqueSlug = $slug;
+        while ($faq->withoutGlobalScopes()
+            ->where('slug', $uniqueSlug)
+            ->orderBy('slug')
+            ->exists()) {
+            $uniqueSlug = $slug . '-' . $i++;
         }
 
-        $lastSlugId = (int) Str::of($lastSlug)
-            ->afterLast('-')
-            ->__toString();
-
-        return ($lastSlugId >= 0) ? "{$slug}-" . ($lastSlugId + 1) : $slug;
+        return $uniqueSlug;
     }
 }
