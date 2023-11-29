@@ -1,6 +1,7 @@
 <?php
 
 use Agenciafmd\Faqs\Http\Livewire\Pages;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/faqs', Pages\Faq\Index::class)
     ->name('admix.faqs.index');

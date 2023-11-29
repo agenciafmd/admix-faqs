@@ -21,7 +21,6 @@ class Index extends BaseIndex
         parent::configure();
     }
 
-
     public function columns(): array
     {
         $this->setAdditionalColumns([
