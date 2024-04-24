@@ -1,14 +1,14 @@
 <x-page.form
-        headerTitle="{{ $model->id ? __('Update :name', ['name' => __(config('admix-faqs.name'))]) : __('Create :name', ['name' => __(config('admix-faqs.name'))]) }}">
+        title="{{ $faq->exists ? __('Update :name', ['name' => __(config('admix-faqs.name'))]) : __('Create :name', ['name' => __(config('admix-faqs.name'))]) }}">
     <div class="row">
         <div class="col-md-6 mb-3">
-            <x-form.label for="model.is_active">
-                {{ Str::of(__('admix-faqs::fields.is_active'))->ucfirst() }}
+            <x-form.label for="form.is_active">
+                {{ str(__('admix-faqs::fields.is_active'))->ucfirst() }}
             </x-form.label>
-            <x-form.checkbox name="model.is_active"
-                             class="form-switch form-switch-lg"
-                             :label-on="__('Yes')"
-                             :label-off="__('No')"
+            <x-form.toggle name="form.is_active"
+                           :large="true"
+                           :label-on="__('Yes')"
+                           :label-off="__('No')"
             />
         </div>
         <div class="col-md-6 mb-3">
@@ -16,37 +16,37 @@
     </div>
     <div class="row">
         <div class="col-md-6 mb-3">
-            <x-form.input name="model.name" :label="__('admix-faqs::fields.name')"/>
+            <x-form.input name="form.name" :label="__('admix-faqs::fields.name')"/>
         </div>
         <div class="col-md-6 mb-3">
             <!-- input here -->
         </div>
         <div class="col-md-12 mb-3">
-            <x-form.textarea name="model.description" :label="__('admix-faqs::fields.description')"/>
+            <x-form.textarea name="form.description" :label="__('admix-faqs::fields.description')"/>
         </div>
         <div class="col-md-6 mb-3">
-            <x-form.number name="model.sort" :label="__('admix-faqs::fields.sort')"/>
+            <x-form.number name="form.sort" :label="__('admix-faqs::fields.sort')"/>
         </div>
     </div>
 
-    <x-slot:cardComplement>
-        @if($model->id)
+    <x-slot:complement>
+        @if($faq->exists)
             <div class="mb-3">
                 <x-form.plaintext :label="__('admix::fields.id')"
-                                  :value="$model->id"/>
+                                  :value="$faq->id"/>
             </div>
             <div class="mb-3">
                 <x-form.plaintext :label="__('admix::fields.slug')"
-                                  :value="$model->slug"/>
+                                  :value="$faq->slug"/>
             </div>
             <div class="mb-3">
                 <x-form.plaintext :label="__('admix::fields.created_at')"
-                                  :value="$model->created_at->format(config('admix.timestamp.format'))"/>
+                                  :value="$faq->created_at->format(config('admix.timestamp.format'))"/>
             </div>
             <div class="mb-3">
                 <x-form.plaintext :label="__('admix::fields.updated_at')"
-                                  :value="$model->updated_at->format(config('admix.timestamp.format'))"/>
+                                  :value="$faq->updated_at->format(config('admix.timestamp.format'))"/>
             </div>
         @endif
-    </x-slot:cardComplement>
+    </x-slot:complement>
 </x-page.form>

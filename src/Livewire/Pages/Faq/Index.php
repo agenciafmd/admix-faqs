@@ -1,8 +1,8 @@
 <?php
 
-namespace Agenciafmd\Faqs\Http\Livewire\Pages\Faq;
+namespace Agenciafmd\Faqs\Livewire\Pages\Faq;
 
-use Agenciafmd\Admix\Http\Livewire\Pages\Base\Index as BaseIndex;
+use Agenciafmd\Admix\Livewire\Pages\Base\Index as BaseIndex;
 use Agenciafmd\Faqs\Models\Faq;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
