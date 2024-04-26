@@ -22,7 +22,7 @@
             <!-- input here -->
         </div>
         <div class="col-md-12 mb-3">
-            <x-form.textarea name="form.description" :label="__('admix-faqs::fields.description')"/>
+            <x-form.easymde name="form.description" :label="__('admix-faqs::fields.description')"/>
         </div>
         <div class="col-md-6 mb-3">
             <x-form.number name="form.sort" :label="__('admix-faqs::fields.sort')"/>

@@ -44,6 +44,7 @@ class Form extends LivewireForm
                 'max:255',
             ],
             'description' => [
+                'required',
                 'nullable',
             ],
             'sort' => [
@@ -64,10 +65,10 @@ class Form extends LivewireForm
     public function validationAttributes(): array
     {
         return [
-            'is_active' => __('local-faqs::fields.is_active'),
-            'name' => __('local-faqs::fields.name'),
-            'description' => __('local-faqs::fields.description'),
-            'sort' => __('local-faqs::fields.sort'),
+            'is_active' => __('admix-faqs::fields.is_active'),
+            'name' => __('admix-faqs::fields.name'),
+            'description' => __('admix-faqs::fields.description'),
+            'sort' => __('admix-faqs::fields.sort'),
         ];
     }
 
