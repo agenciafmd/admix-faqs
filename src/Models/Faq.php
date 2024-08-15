@@ -5,15 +5,17 @@ namespace Agenciafmd\Faqs\Models;
 use Agenciafmd\Admix\Traits\WithScopes;
 use Agenciafmd\Admix\Traits\WithSlug;
 use Agenciafmd\Faqs\Database\Factories\FaqFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class Faq extends Model implements AuditableContract
 {
-    use Auditable, HasFactory, SoftDeletes, WithScopes, WithSlug;
+    use Auditable, HasFactory, Prunable, SoftDeletes, WithScopes, WithSlug;
 
     protected $guarded = [
         //
@@ -28,6 +30,11 @@ class Faq extends Model implements AuditableContract
         'sort' => 'asc',
         'name' => 'asc',
     ];
+
+    public function prunable(): Builder
+    {
+        return self::where('deleted_at', '<=', now()->subYear());
+    }
 
     protected static function newFactory(): FaqFactory
     {
