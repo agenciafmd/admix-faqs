@@ -20,19 +20,18 @@ class Faq extends Model implements AuditableContract
 {
     use Auditable, HasFactory, Prunable, SoftDeletes, WithScopes, WithSlug;
 
-    protected $guarded = [
-        //
-    ];
-
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
-
     protected array $defaultSort = [
         'is_active' => 'desc',
         'sort' => 'asc',
         'name' => 'asc',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
 
     public function prunable(): Builder
     {
