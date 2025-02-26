@@ -14,19 +14,19 @@ class FaqTableSeeder extends Seeder
         Faq::query()
             ->truncate();
 
-        $this->command->getOutput()
-            ->progressStart($this->total);
+        //        $this->command->getOutput()
+        //            ->progressStart($this->total);
 
         collect(range(1, $this->total))
             ->each(function () {
                 Faq::factory()
                     ->create();
 
-                $this->command->getOutput()
-                    ->progressAdvance();
+                //                $this->command->getOutput()
+                //                    ->progressAdvance();
             });
 
-        $this->command->getOutput()
-            ->progressFinish();
+        //        $this->command->getOutput()
+        //            ->progressFinish();
     }
 }

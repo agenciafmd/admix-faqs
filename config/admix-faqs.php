@@ -3,5 +3,5 @@
 return [
     'name' => 'FAQs',
     'icon' => 'help',
-    'sort' => 200,
+    'sort' => 120,
 ];
