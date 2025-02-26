@@ -2,8 +2,6 @@
 
 namespace Agenciafmd\Faqs\Providers;
 
-use Agenciafmd\Faqs\Models\Faq;
-use Agenciafmd\Faqs\Observers\FaqObserver;
 use Illuminate\Support\ServiceProvider;
 
 class FaqServiceProvider extends ServiceProvider
@@ -11,8 +9,6 @@ class FaqServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->providers();
-
-        $this->setObservers();
 
         $this->loadMigrations();
 
@@ -48,11 +44,6 @@ class FaqServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../lang/pt_BR' => lang_path('pt_BR'),
         ], ['admix-faqs:translations', 'admix-translations']);
-    }
-
-    private function setObservers(): void
-    {
-        Faq::observe(FaqObserver::class);
     }
 
     private function loadMigrations(): void
