@@ -9,11 +9,11 @@ class BladeServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->loadBladeComponents();
+        $this->bootBladeComponents();
 
-        $this->loadBladeDirectives();
+        $this->bootBladeDirectives();
 
-        $this->loadBladeComposers();
+        $this->bootBladeComposers();
 
         $this->setMenu();
 
@@ -27,17 +27,17 @@ class BladeServiceProvider extends ServiceProvider
         //
     }
 
-    private function loadBladeComponents(): void
+    private function bootBladeComponents(): void
     {
         Blade::componentNamespace('Agenciafmd\\Faqs\\Http\\Components', 'admix-faqs');
     }
 
-    private function loadBladeComposers(): void
+    private function bootBladeComposers(): void
     {
         //
     }
 
-    private function loadBladeDirectives(): void
+    private function bootBladeDirectives(): void
     {
         //
     }
