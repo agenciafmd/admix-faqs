@@ -28,6 +28,6 @@ return [
                 'method' => 'restore',
             ],
         ],
-        'sort' => 200,
+        'sort' => 120,
     ],
 ];
