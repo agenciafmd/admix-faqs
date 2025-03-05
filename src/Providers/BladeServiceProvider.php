@@ -15,11 +15,11 @@ class BladeServiceProvider extends ServiceProvider
 
         $this->bootBladeComposers();
 
-        $this->setMenu();
+        $this->bootMenu();
 
-        $this->loadViews();
+        $this->bootViews();
 
-        $this->publish();
+        $this->bootPublish();
     }
 
     public function register(): void
@@ -42,7 +42,7 @@ class BladeServiceProvider extends ServiceProvider
         //
     }
 
-    private function setMenu(): void
+    private function bootMenu(): void
     {
         $this->app->make('admix-menu')
             ->push((object) [
@@ -51,12 +51,12 @@ class BladeServiceProvider extends ServiceProvider
             ]);
     }
 
-    private function loadViews(): void
+    private function bootViews(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'admix-faqs');
     }
 
-    private function publish(): void
+    private function bootPublish(): void
     {
         // $this->publishes([
         //     __DIR__ . '/../resources/views' => base_path('resources/views/vendor/agenciafmd/faqs'),

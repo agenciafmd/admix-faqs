@@ -14,7 +14,7 @@ class FaqServiceProvider extends ServiceProvider
 
         $this->bootTranslations();
 
-        $this->publish();
+        $this->bootPublish();
     }
 
     public function register(): void
@@ -31,7 +31,7 @@ class FaqServiceProvider extends ServiceProvider
         $this->app->register(LivewireServiceProvider::class);
     }
 
-    private function publish(): void
+    private function bootPublish(): void
     {
         $this->publishes([
             __DIR__ . '/../../config' => base_path('config'),
