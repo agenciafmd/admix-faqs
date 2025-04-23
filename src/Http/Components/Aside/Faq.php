@@ -4,6 +4,8 @@ namespace Agenciafmd\Faqs\Http\Components\Aside;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Gate;
+use Agenciafmd\Faqs\Models\Faq as FaqModel;
 
 class Faq extends Component
 {
@@ -23,7 +25,7 @@ class Faq extends Component
         $this->label = __(config('admix-faqs.name'));
         $this->url = route('admix.faqs.index');
         $this->active = request()?->currentRouteNameStartsWith('admix.faqs');
-        $this->visible = true;
+        $this->visible = Gate::allows('view', FaqModel::class);
 
         return view('admix::components.aside.item');
     }
